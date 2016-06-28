@@ -10,9 +10,15 @@ Also, **error correction is currently not supported**.
 Usage
 ------
 
-put qr.py in same dir as source file
+Put `qr.py` in the same directory as the source file. Call it like this:
 
-`QR(lambda x, y: bool).text`
+
+```python
+from qr import QR
+QR(function).text
+```
+
+`x` and `y` are passed to `function` which must return a boolean indicating whether the pixel of the QR code is black.
 
 Examples
 --------
@@ -47,19 +53,17 @@ sample = [
 try :
 	qr = QR(lambda x, y: sample[y][x] == "#")
 	print(qr.text)
-except Exception, e:
-	print("fuck this library... shits not working" + str(e))
+except Exception as e:
+	print("QR code could not be parsed: " + str(e))
 
 ```
 
-
-----------
 
 
 ```python
 from qr import QR
 from PIL import Image
-im = Image.open("qr.png").convert("RGB")
+im = Image.open("qr.png")
 
 def isPixelBlack(x, y):
   r, g, b = im.getpixel((x, y))
@@ -68,8 +72,8 @@ def isPixelBlack(x, y):
 try :
 	qr = QR(isPixelBlack)
 	print(qr.text)
-except Exception, e:
-	print("fuck this library... shits not working" + str(e))
+except Exception as e:
+	print("QR code could not be parsed: " + str(e))
 
 ```
 
